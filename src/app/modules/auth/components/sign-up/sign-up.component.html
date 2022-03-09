@@ -1,0 +1,34 @@
+<mat-card class="centered">
+    <mat-card-content>
+        <a [routerLink]="'/sign-in'">Have account already? Sign in!</a>    
+        <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput name="email" ngModel type="email" #emailInput="ngModel" [(ngModel)]="email" email placeholder="Enter Email" required />
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" ngModel #fnameInput="ngModel" [(ngModel)]="username" placeholder="Enter First name" name="username" required />
+                </mat-form-field>     
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" name="password" ngModel minlength="8" #passwordInput="ngModel" [(ngModel)]="password" placeholder="Enter Password" required />
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" name="password-confirm" ngModel minlength="8" #passwordInput="ngModel" [(ngModel)]="passwordConfirmation" placeholder="Confirm Password" required />
+                </mat-form-field>
+            </p>
+
+
+            <button mat-button disabled="!signupForm.valid && signupForm.disabled === false" type="submit">Register</button>
+        </form>
+    </mat-card-content>
+</mat-card>

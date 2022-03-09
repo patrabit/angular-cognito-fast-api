@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <mat-drawer-container class="container" autosize>
+        <mat-drawer #drawer class="sidenav" mode="side" opened="true">
+            <p>Auto-resizing sidenav</p>
+            <p *ngIf="showSidebar">Lorem, ipsum dolor sit amet consectetur.</p>
+            <button (click)="showSidebar = !showSidebar" mat-raised-button>
+                Toggle extra text
+            </button>
+        </mat-drawer>
+        
+        <div class="sidenav-content">
+            <button type="button" mat-button (click)="drawer.toggle()">
+                Toggle sidenav
+            </button>
+        </div>        
+    </mat-drawer-container>
+</div>

@@ -1,0 +1,36 @@
+version: "3.7"
+networks:
+  studio-deskc-net:
+    driver: bridge
+services:
+  db:
+    container_name: studio-desk-db
+    restart: always
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - /var/lib/docker/volumes/studio-desk-db:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+  localstack:
+    container_name: studio-desk-localstack
+    image: localstack/localstack
+    ports:
+      - "4566-4597:4566-4597"
+      - "8888:8888"
+    environment:
+      - SERVICES=s3,lamda,kinesis,apigateway,cloudformation,apigateway,sqs,serverless,cognito-idp
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - PORT_WEB_UI=8888
+      - LAMBDA_EXECUTOR=docker
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+    volumes:
+      - "/tmp/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - studio-deskc-net
